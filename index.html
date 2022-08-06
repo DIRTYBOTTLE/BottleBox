@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css" type="text/css"
+          rel="stylesheet"/>
+    <title>BottleBox</title>
+</head>
+
+<body>
+
+<nav id="navbar">
+    <div class="logo">
+        <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-c2886eb2e2511cf0b9b9bd8293fe3cb3_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661710743&t=7a5d3e13fc378f21f7f060039c4ae4f0w"
+             alt="user"/>
+    </div>
+    <ul>
+        <li><a href="#" onclick="route('http://blog.jollybottle.plus/')">BottleBlog</a></li>
+        <li><a href="#" onclick="route('http://earth.jollybottle.plus/')">BottleEarth</a></li>
+        <li><a href="#" onclick="route('http://cloud.jollybottle.plus/')">BottleCloud</a></li>
+    </ul>
+</nav>
+
+<header>
+    <button id="toggle" class="toggle">
+        <i class="fa fa-bars fa-2x"></i>
+    </button>
+</header>
+
+<iframe style="height: 100vh;width: 100vw;border: 0;display: block" scrolling="auto"
+        src="http://blog.jollybottle.plus/">
+</iframe>
+
+
+</body>
+</html>
+
+<style>
+    /*@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');*/
+
+    :root {
+        --modal-duration: 1s;
+        --primary-color: #30336b;
+        --secondary-color: #be2edd;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        /*font-family: 'Lato', sans-serif;*/
+        margin: 0;
+        transition: transform 0.3s ease;
+    }
+
+    body.show-nav {
+        transform: translateX(200px);
+    }
+
+    nav {
+        background-color: var(--primary-color);
+        border-right: 2px solid rgba(200, 200, 200, 0.1);
+        /*color: #fff;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        z-index: 100;
+        transform: translateX(-100%);
+    }
+
+    nav .logo {
+        padding: 30px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav .logo img {
+        display: block;
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    nav ul {
+        padding: 0;
+        list-style-type: none;
+        margin: 0;
+    }
+
+    nav ul li {
+        border-bottom: 2px solid rgba(200, 200, 200, 0.1);
+        padding: 20px;
+    }
+
+    nav ul li:first-of-type {
+        border-top: 2px solid rgba(200, 200, 200, 0.1);
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .toggle {
+        background-color: rgba(255, 255, 255, 0.7);
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+</style>
+
+<script>
+    const toggle = document.getElementById('toggle');
+    const navbar = document.getElementById('navbar');
+
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('show-nav');
+    });
+
+    const route = (address) => {
+        window.frames[0].location = address;
+    }
+</script>
