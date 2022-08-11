@@ -22,8 +22,7 @@
              alt="user"/>
     </div>
     <ul>
-        <!--        <li><a href="#" onclick="route('http://blog.jollybottle.plus/')">BottleBlog</a></li>-->
-        <li><a href="#" onclick="route('http://localhost:9876/')">BottleBlog</a></li>
+        <li><a href="#" onclick="route('http://blog.jollybottle.plus/')">BottleBlog</a></li>
         <li><a href="#" onclick="route('http://earth.jollybottle.plus/')">BottleEarth</a></li>
         <li><a href="#" onclick="route('http://cloud.jollybottle.plus/')">BottleCloud</a></li>
     </ul>
@@ -80,7 +79,7 @@
     </button>
 </header>
 
-<iframe id="ifr" style="height: 100vh;width: 100vw;border: 0;display: block;" src="http://localhost:9876/">
+<iframe id="ifr" style="height: 100vh;width: 100vw;border: 0;display: block;" src="http://blog.jollybottle.plus/">
 </iframe>
 
 
@@ -466,7 +465,7 @@
             res.json().then((json) => {
                 if (json.code === '0') {
                     notification('登陆成功～', 'success')
-                    route('http://localhost:9876/')
+                    route('http://blog.jollybottle.plus/')
                     localStorage.setItem("user", JSON.stringify(json.data))
                     addUserDom()
                 } else {
@@ -512,8 +511,7 @@
     window.onload = function () {
         if (localStorage.getItem("user")) {
             addUserDom()
-        }
-        else {
+        } else {
             quiting.style.display = "none"
         }
     }
