@@ -306,14 +306,14 @@ audio.addEventListener('error', () => {
     }
 });
 audio.addEventListener('timeupdate', () => {
-    const reTime = /([0-5][0-9]:[0-5][0-9])/g;
+    const reTime = /([0-5][0-9]:[0-5][0-9].[0-9][0-9])/;
     const timeStr = reTime.exec(lyric[lyricIndex]);
     if (timeStr !== null) {
         const time = timeStr[0].split(':');
         const min = Number(time[0])
         const sec = Number(time[1])
         const sumSec = min * 60 + sec;
-        reTime.lastIndex = 0;
+        // reTime.lastIndex = 0;
         let sumSecNext = 0;
         if (lyric[lyricIndex + 1]) {
             const timeStrNext = reTime.exec(lyric[lyricIndex + 1]);
