@@ -1,262 +1,100 @@
-:root {
-    --menu-width: 10vw;
-    --modal-duration: 1s;
-    --primary-color: #30336b;
-    --secondary-color: #be2edd;
-    --success-color: #2ecc71;
-    --error-color: #e74c3c;
-}
-
-@media (max-width: 1000px) {
-    :root {
-        --menu-width: 80vw;
-    }
-}
-
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-body {
-    transition: transform 0.3s ease;
-    overflow: hidden;
-}
-
-
-body.show-nav {
-    transform: translateX(var(--menu-width));
-}
-
-nav {
-    background-color: white;
-    border-right: 2px solid rgba(200, 200, 200, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: var(--menu-width);
-    height: 100%;
-    z-index: 100;
-    transform: translateX(-100%);
-}
-
-.avatar {
-    height: calc(var(--menu-width) * 0.6);
-    width: calc(var(--menu-width) * 0.6);
-    border-radius: 50%;
-    display: block;
-    margin: 1em auto;
-    box-shadow: 0 0 1em rgba(19, 18, 18, 0.7);
-    animation: rotate 3s linear infinite;
-    animation-play-state: paused;
-}
-
-.avatar:hover {
-    animation-play-state: running;
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-nav ul {
-    padding: 0;
-    margin: 0;
-    text-align: center;
-    list-style-type: none;
     user-select: none;
 }
 
-nav ul li {
-    border-bottom: 2px solid rgba(200, 200, 200, 0.3);
-    padding: 1em;
-    cursor: pointer;
-}
-
-nav ul li:first-of-type {
-    border-top: 2px solid rgba(200, 200, 200, 0.3);
-}
-
-nav ul li:hover {
-    background-color: black;
-    color: white;
-}
-
-/* 导航底部 */
-.nav-footer {
-    position: absolute;
-    bottom: 0;
-}
-
-/* 登陆注册 */
-.landQuit {
-    cursor: pointer;
-    background-color: black;
-    border: 1px solid #000000;
-    color: #fff;
-    padding: 1em;
-    width: 100%;
-}
-
-.landQuit:hover {
-    background-color: white;
-    color: black;
-}
-
-/* 音乐播放器 */
-.music-cover {
-    width: 100%;
-    height: 100%;
-    transition: border-radius 0.3s ease;
-}
-
-.music-cover.playing {
-    border-radius: 50%;
-    animation: rotate 3s linear infinite;
-}
-
-.music-button {
+body {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://api.ixiaowai.cn/gqapi/gqapi.php);
     display: flex;
-    justify-content: space-between;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-.action-btn {
-    background-color: transparent;
-    border: 0;
-    color: black;
-    font-size: 1em;
-    cursor: pointer;
+/* 导航区 */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: transform 1s;
 }
 
-.action-btn.action-btn-big {
-    font-size: 2em;
+.main-container.hidden {
+    transform: translateY(-100vh);
 }
 
-.title {
-    text-align: center;
-    font-weight: bold;
-}
-
-.author {
-    text-align: center;
-}
-
-.lyr {
-    text-align: center;
-}
-
-
-.toggle {
-    width: 2em;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    cursor: pointer;
-}
-
-#register {
-    display: none;
-}
-
-.form-container {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-100%, -50%);
-}
-
-form {
-    padding: 30px 40px;
-}
-
-form h2 {
-    text-align: center;
-    margin: 0 0 20px;
-}
-
-.form-item {
-    margin-bottom: 10px;
-    padding-bottom: 20px;
+/* 导航头像区 */
+.card {
     position: relative;
+    height: 20vh;
+    width: 20vh;
+    cursor: pointer;
 }
 
-.form-item label {
-    color: #777;
-    display: block;
-    margin-bottom: 5px;
+.face {
+    transition: transform 0.5s;
+    backface-visibility: hidden;
 }
 
-.form-item input {
-    border: 2px solid #f0f0f0;
-    border-radius: 4px;
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
+.card:hover .face {
+    transform: rotateY(-180deg);
 }
 
-.form-item input:focus {
-    outline: 0;
-    border-color: #777;
+.back {
+    transition: transform 0.5s;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
 }
 
-.form-item.success input {
-    border-color: var(--success-color);
+.card:hover .back {
+    transform: rotateY(0);
 }
 
-.form-item.error input {
-    border-color: var(--error-color);
+.avatar {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    border-radius: 50%;
+    box-shadow: 0 0 2em rgb(0, 0, 0);
 }
 
-.form-item small {
-    color: var(--error-color);
+/* 导航链接区 */
+.link-container {
+    height: 20vh;
+    min-width: 30vh;
+    margin-top: 1em;
+    border-top: 1px solid white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.link-container img {
+    margin-top: 0.5em;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+}
+
+/* 文章区 */
+
+/*
+
+
+
+
+
+
+
+
+/* 音乐区 */
+.music-container {
     position: absolute;
     bottom: 0;
     left: 0;
-    visibility: hidden;
 }
 
-.form-item.error small {
-    visibility: visible;
-}
-
-form button {
-    cursor: pointer;
-    background-color: #3498db;
-    border: 2px solid #3498db;
-    border-radius: 4px;
-    color: #fff;
-    display: block;
-    font-size: 16px;
-    padding: 10px;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.btn-close {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
-
-.switch {
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: gray;
-}
