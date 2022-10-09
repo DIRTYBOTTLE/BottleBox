@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://api.ixiaowai.cn/gqapi/gqapi.php);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 导航区 */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: transform 1s;
+}
+
+.main-container.hidden {
+    transform: translateY(-100vh);
+}
+
+/* 导航头像区 */
+.card {
+    position: relative;
+    height: 20vh;
+    width: 20vh;
+    cursor: pointer;
+}
+
+.face {
+    transition: transform 0.5s;
+    backface-visibility: hidden;
+}
+
+.card:hover .face {
+    transform: rotateY(-180deg);
+}
+
+.back {
+    transition: transform 0.5s;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+
+.card:hover .back {
+    transform: rotateY(0);
+}
+
+.avatar {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    border-radius: 50%;
+    box-shadow: 0 0 2em rgb(0, 0, 0);
+}
+
+/* 导航链接区 */
+.link-container {
+    height: 20vh;
+    min-width: 30vh;
+    margin-top: 1em;
+    border-top: 1px solid white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.link-container img {
+    margin-top: 0.5em;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+}
+
+/* 文章区 */
+
+/*
+
+
+
+
+
+
+
+
+/* 音乐区 */
+.music-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+

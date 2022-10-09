@@ -1,0 +1,138 @@
+.article-container {
+    width: 60vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    transform: translateY(100vh);
+    transition: transform 1s;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 2em rgb(0, 0, 0);
+}
+
+.article-container.show {
+    transform: translateY(0);
+}
+
+.go-main {
+    height: 13em;
+    cursor: pointer;
+}
+
+.article-card {
+    width: 30vw;
+    padding: 1em;
+    background-color: white;
+    border-radius: 1em;
+    font-family: STKaiti, KaiTi;
+    position: relative;
+    z-index: 333;
+    cursor: pointer;
+}
+
+.article-card+.article-card {
+    margin-top: 2em;
+}
+
+.article-card:hover {
+    background-color: MediumOrchid;
+    color: white;
+}
+
+.article-card h1,
+.article-card h3 {
+    text-align: center;
+}
+
+.article-card h3 {
+    margin-top: 0.5em;
+}
+
+.read {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+}
+
+.write {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+}
+
+.delete {
+    position: absolute;
+    right: 0.6em;
+    top: 0.6em;
+    height: 1.2em;
+    opacity: 0;
+}
+
+.delete:hover {
+    opacity: 1;
+}
+
+.content {
+    width: 60vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 0;
+    transform: translateY(100vh);
+    transition: transform 1s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 2em rgb(0, 0, 0);
+    user-select: initial;
+}
+
+.content.show {
+    transform: translateY(0);
+}
+
+.go-article,
+.upload {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 101;
+    height: 3em;
+    cursor: pointer;
+}
+
+.upload {
+    height: 2.6em;
+    right: 0.2em;
+    bottom: 3em;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    border: 0;
+    background-color: transparent;
+}
+
+#editor—wrapper {
+    z-index: 100;
+    height: calc(100% - 2.7em);
+    width: 100%;
+}
+
+#toolbar-container {
+    border-bottom: 1px solid #ccc;
+}
+
+#editor-container {
+    height: calc(100%);
+}

@@ -1,0 +1,63 @@
+.music {
+    display: flex;
+    height: 5em;
+}
+
+.music-cover {
+    display: block;
+    width: 5em;
+    height: 5em;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.music-button {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top-right-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 6em;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.music-button.hidden {
+    transform: translateX(-7em);
+}
+
+.action-btn {
+    background-color: transparent;
+    border: 0;
+    color: black;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.action-btn.action-btn-big {
+    font-size: 2em;
+}
+
+.lyr-switch {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.lyr-switch:hover {
+    color: white;
+}
+
+.lyr {
+    width: 12em;
+    text-align: center;
+    color: white;
+    font-family: STKaiti, KaiTi;
+    /* -webkit-text-stroke: 1px white; */
+}
+
+.lyr.hidden {
+    visibility: hidden;
+}
