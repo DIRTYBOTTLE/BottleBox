@@ -229,6 +229,7 @@ export default class ArticleCore {
             }
         }
     }
+    // test
 
     checkEvent(event) {
         event.preventDefault();
