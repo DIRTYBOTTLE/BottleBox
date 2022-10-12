@@ -17,6 +17,7 @@ export default class ArticleCore {
                 <div id="editor-container"></div>
             </div>
             <img src="./img/云上传.png" class="upload" id="upload">
+            <img src="./img/目录.png" class="cata" id="cata">
             <img src="./img/返回.png" class="go-article" id="goArticle">
         `
         const contentDiv = document.createElement('div');
@@ -24,11 +25,27 @@ export default class ArticleCore {
         contentDiv.classList.add('content');
         contentDiv.innerHTML = contentHtml;
         document.getElementById(container).after(contentDiv);
+
+        const catalogHtml = `
+            <ul id="catalogContainer" class="catalog-container">
+            </ul>
+        `
+        const catalogDiv = document.createElement('div');
+        catalogDiv.id = 'catalog';
+        catalogDiv.classList.add('catalog');
+        catalogDiv.innerHTML = catalogHtml;
+        document.getElementById('content').after(catalogDiv);
+
         this.getArticles();
         this.editor = window.wangEditor.createEditor({
             selector: '#editor-container',
             html: '<p><br></p>',
-            config: { placeholder: 'Type here...' },
+            config: {
+                placeholder: 'Type here...',
+                onChange: (editor) => {
+                    this.catalogChange(editor);
+                }
+            },
             mode: 'default', // or 'simple'
         })
 
@@ -117,6 +134,13 @@ export default class ArticleCore {
             content.classList.toggle('show');
             tool.style.display = 'none';
             updload.style.display = 'none';
+            const onleaving = () => {
+                document.getElementById('goArticle').removeEventListener('click', onleaving);
+                document.getElementById('content').classList.toggle('show');
+                document.getElementById('articleContainer').classList.toggle('show');
+                document.getElementById('catalog').classList.remove('show');
+            }
+            document.getElementById('goArticle').addEventListener('click', onleaving);
         }
         if (target.classList[0] === 'write') {
             const dataId = target.parentNode.getAttribute('data-id');
@@ -151,6 +175,44 @@ export default class ArticleCore {
                     }
                 });
             }
+            const saveKey = (event) => {
+                if ((event.metaKey && event.key === "s") || (event.ctrlKey && event.key === "s")){
+                    event.preventDefault();
+                    const articleForm = {
+                        id: data[dataId] ? data[dataId].id : -1,
+                        title: title.value,
+                        content: editor.getHtml(),
+                        fromTime: myDate.toLocaleDateString(),
+                        toTime: myDate.toLocaleDateString(),
+                        userId: 1
+                    };
+                    this.pushArticle(articleForm).then((code) => {
+                        if (code === '0') {
+                            alert('更新成功');
+                            this.getArticles();
+                        } else {
+                            alert('更新失败');
+                        }
+                        if (dataId < 0) {
+                            document.getElementById('content').classList.toggle('show');
+                            document.getElementById('articleContainer').classList.toggle('show');
+                        }
+                    });
+                }
+            }
+            document.addEventListener("keydown", saveKey);
+            this.checkSave();
+            const onleaving = () => {
+                if (confirm('可能还未保存，确认离开？')) {
+                    this.removeCheck();
+                    document.getElementById('goArticle').removeEventListener('click', onleaving);
+                    document.getElementById('content').classList.toggle('show');
+                    document.getElementById('articleContainer').classList.toggle('show');
+                    document.getElementById('catalog').classList.remove('show');
+                    document.removeEventListener("keydown", saveKey);
+                }
+            }
+            document.getElementById('goArticle').addEventListener('click', onleaving);
         }
         if (target.classList[0] === 'delete') {
             if (confirm('确认删除？')) {
@@ -165,33 +227,40 @@ export default class ArticleCore {
                     }
                 });
             }
-            // ElMessageBox.confirm(
-            //     '确认删除?',
-            //     {
-            //       confirmButtonText: '是的',
-            //       cancelButtonText: '取消',
-            //       type: 'warning',
-            //     }
-            // ).then(() => {
-            //   axios.get('/api/blog/delete.do', {
-            //     params: {
-            //       id: id
-            //     }
-            //   }).then(res => {
-            //     if (res.data.code === '0') {
-            //       getBlog()
-            //       ElMessage.success("删除成功！")
-            //     } else {
-            //       ElMessage.error("删除失败！")
-            //     }
-            //   })
-            // }).catch(() => {
-            //   ElMessage({
-            //     type: 'info',
-            //     message: 'Delete canceled',
-            //   })
-            // })
         }
+    }
+
+    checkEvent(event) {
+        event.preventDefault();
+        // Chrome requires returnValue to be set.
+        event.returnValue = '';
+    }
+
+    checkSave() {
+        window.addEventListener('beforeunload', this.checkEvent);
+    }
+
+    removeCheck() {
+        window.removeEventListener('beforeunload', this.checkEvent);
+    }
+
+    catalogChange(editor) {
+        const headers = editor.getElemsByTypePrefix('header');
+        const catalogContainer = document.getElementById('catalogContainer');
+        const catalogHtml = headers.map(header => {
+            const id = header.id;
+            const type = header.type;
+            const text = header.children[0].text;
+            const color = header.children[0].color;
+            return `<li id="${id}" data-type="${type}" style="color:${color}">${text}</li>`
+        }).join('');
+        catalogContainer.innerHTML = catalogHtml;
+        catalogContainer.addEventListener('click', e => {
+            if (e.target.tagName === 'LI') {
+                e.preventDefault();
+                editor.scrollToElem(e.target.id);
+            }
+        });
     }
 }
 
