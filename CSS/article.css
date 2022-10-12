@@ -100,6 +100,7 @@
 }
 
 .go-article,
+.cata,
 .upload {
     position: fixed;
     bottom: 0;
@@ -109,10 +110,18 @@
     cursor: pointer;
 }
 
-.upload {
+.cata {
     height: 2.6em;
     right: 0.2em;
     bottom: 3em;
+}
+
+
+
+.upload {
+    height: 2.6em;
+    right: 0.2em;
+    bottom: 6em;
 }
 
 .title {
@@ -121,6 +130,7 @@
     text-align: center;
     border: 0;
     background-color: transparent;
+    width: 100%;
 }
 
 #editor—wrapper {
@@ -135,4 +145,54 @@
 
 #editor-container {
     height: calc(100%);
+}
+
+.catalog {
+    height: 100vh;
+    width: 20vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateX(-20vw);
+    transition: transform 1s;
+}
+
+.catalog.show {
+    transform: translateX(0);
+}
+
+.catalog-container {
+    list-style-type: none;
+    overflow-y: hidden;
+    height: calc(100vh - 8em);
+    margin-left: 1em;
+}
+
+.catalog-container:hover {
+    overflow-y: auto;
+}
+
+.catalog-container li {
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.catalog-container li:hover {
+    text-decoration: underline;
+}
+
+.catalog-container li[data-type="header1"] {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.catalog-container li[data-type="header2"] {
+    font-size: 1em;
+    padding-left: 0.6em;
+}
+
+.catalog-container li[data-type="header3"] {
+    font-size: 0.8em;
+    padding-left: 1.5em;
 }

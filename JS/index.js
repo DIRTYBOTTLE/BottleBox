@@ -17,26 +17,27 @@ document.getElementById('emailIcon').addEventListener(('click'), () => {
     }
     copy('zpchang@whu.edu.cn');
     alert('邮箱已复制～');
-})
+});
 
 import initMusic from "./music.js"
 initMusic('music-container');
 
 import ArticleCore from "./article.js";
-new ArticleCore('articleContainer', 'http://101.42.222.84:8080/ssm/');
+const ac = new ArticleCore('articleContainer', 'http://101.42.222.84:8080/ssm/');
 document.getElementById('goMain').onclick = () => {
     document.getElementById('mainContainer').classList.toggle('hidden');
     document.getElementById('articleContainer').classList.toggle('show');
 }
-document.getElementById('goArticle').addEventListener('click', () => {
-    document.getElementById('content').classList.toggle('show');
-    document.getElementById('articleContainer').classList.toggle('show');
+// document.getElementById('goArticle').addEventListener('click', () => {
+//     document.getElementById('content').classList.toggle('show');
+//     document.getElementById('articleContainer').classList.toggle('show');
+//     document.getElementById('catalog').classList.remove('show');
+//     ac.removeCheck();
+// })
+
+document.getElementById('cata').addEventListener('click', () => {
+    document.getElementById('catalog').classList.toggle('show');
 })
-
-
-
-
-
 
 
 
